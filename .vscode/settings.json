@@ -1,3 +1,4 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.pythonPath": "c:\\Users\\rolli\\Desktop\\dashboard\\dashboard\\Scripts\\python.exe"
 }
