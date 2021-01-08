@@ -1,0 +1,23 @@
+{% extends 'dashboard/main.html' %}
+
+{% load static %}
+{% block content %}
+
+<h2>Import Statistics Data</h2>
+<hr>
+<!--Section title-->
+<h3 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">File Upload</h3>
+<!-- Add Stats -->
+<div class="form-group">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="statistics_document">
+        <button type="submit">Upload file</button>
+    </form>
+    {% if flag %}
+        <p> {{ name }} uploaded at <a href="{{ url }}">{{ name }}</a></p>
+        <p> {{ result|linebreaks }}</p>
+    {% endif %}
+</div>
+                        
+{% endblock %}

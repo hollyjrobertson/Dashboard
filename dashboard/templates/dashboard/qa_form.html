@@ -1,0 +1,32 @@
+{% extends 'dashboard/main.html' %}
+
+{% load static %}
+{% block content %}
+
+<h2>Add QA Reviews for {{ employee }}</h2>
+<hr>
+<!--Section title-->
+<h3 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">QA Review</h3>
+<!-- Add Stats -->
+<div class="form-group">
+    <form method="post">
+        {% csrf_token %}
+        {{ qa_form.management_form }}
+            {% for form in qa_form %} 
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">    
+                {% for field in form.visible_fields %}
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{{ field.label_tag }} {{ field }} </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        <div>
+            <button class="btn btn-success">Add Review</button>
+        </div>
+    </form>
+</div>
+                        
+{% endblock %}

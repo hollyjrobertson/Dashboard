@@ -1,0 +1,19 @@
+{% extends 'dashboard/main.html' %}
+
+{% load static %}
+{% block content %}
+
+<h2>Add Updates for Team</h2>
+<hr>
+<!--Section title-->
+<h3 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Updates</h3>
+<!-- Add Stats -->
+<form method="post">
+    {% csrf_token %}
+    {{ form }} 
+    <div>
+        <button class="btn btn-success">Add Update</button>
+    </div>
+</form>
+                        
+{% endblock %}
