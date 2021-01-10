@@ -26,8 +26,8 @@ class Employee(models.Model):
     birthdate = models.DateField(auto_now_add=False, auto_now=False, null=True, blank=True)
     ext = models.CharField(max_length=10, null=True, blank=True)
     avaya_login = models.CharField(max_length=10, null=True, blank=True)
-    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=ROLE_CHOICES[0][0])
-    team = models.CharField(max_length=2, choices=TEAM_CHOICES, default=TEAM_CHOICES[0][0])
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=ROLE_CHOICES[0][0])
+    team = models.CharField(max_length=20, choices=TEAM_CHOICES, default=TEAM_CHOICES[0][0])
 
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
@@ -87,8 +87,8 @@ class TimeStats(models.Model):
 class Updates(models.Model):
     id = models.AutoField(primary_key=True, blank=True)
     update_date = models.DateField(auto_now_add=False, auto_now=False, default=datetime.now, null=True, blank=True)
-    important = models.BooleanField(default=False, null=True, blank=True)
-    update = models.TextField(max_length=500, null=True, blank=True)
+    important = models.BooleanField(default=False)
+    update = models.TextField(max_length=2000, null=True, blank=True)
 
 def __str__(self):
     return 'Date: %s Update: %s' % (self.update_date, self.update)

@@ -23,9 +23,33 @@ def index(request):
         'current_IT_analyst_list': getITAnalysts(),
         'current_IT_specialist_list': getITSpecialists(),
         'current_IT_leader_list': getITLeaders(),
-        'title': 'Welcome'
+        'title': 'Welcome',
+        'updates': getUpdates(),
+        'important_updates': getImportantUpdates(),
         }
     return render(request, 'dashboard/index.html', context)
+
+def setUpdates():
+    global updates
+    updates = Updates.objects.all().order_by('-update_date')[:5]
+
+def getUpdates():
+    try:
+        updates
+    except:
+        setUpdates()
+    return updates
+
+def setImportantUpdates():
+    global important_updates
+    important_updates = Updates.objects.filter(important=True).order_by('-update_date')[:5]
+
+def getImportantUpdates():
+    try:
+        important_updates
+    except:
+        setImportantUpdates()
+    return important_updates
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -53,11 +77,12 @@ def addTimeStats(request, employee_id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def addUpdate(request):
-    form = UpdateForms()
+    Updates.objects.all().delete()
+    update_form = UpdateForms()
     if request.method == 'POST':
-        form = UpdateForms(request.POST)
-        if form.is_valid():
-            form.save()
+        update_form = UpdateForms(request.POST)
+        if update_form.is_valid():
+            update_form.save()
             return redirect('index')
     context = {
         'current_CC_analyst_list': getCCAnalysts(),
@@ -66,7 +91,7 @@ def addUpdate(request):
         'current_IT_analyst_list': getITAnalysts(),
         'current_IT_specialist_list': getITSpecialists(),
         'current_IT_leader_list': getITLeaders(),
-        'form': form,
+        'form': update_form,
     }
     return render(request, 'dashboard/update_form.html', context)
 
