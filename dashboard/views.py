@@ -77,7 +77,6 @@ def addTimeStats(request, employee_id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def addUpdate(request):
-    Updates.objects.all().delete()
     update_form = UpdateForms()
     if request.method == 'POST':
         update_form = UpdateForms(request.POST)

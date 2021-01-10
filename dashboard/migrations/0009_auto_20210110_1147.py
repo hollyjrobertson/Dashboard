@@ -15,4 +15,9 @@ class Migration(migrations.Migration):
             name='team',
             field=models.CharField(choices=[('IT', 'Information Technology'), ('CC', 'Call Center')], default='IT', max_length=20),
         ),
+        migrations.AlterField(
+            model_name='updates',
+            name='important',
+            field=models.BooleanField(default=False),
+        ),
     ]
