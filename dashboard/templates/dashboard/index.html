@@ -6,6 +6,9 @@
         color: green;
         background-color: beige;
     }
+    ul {
+        list-style-type: none;
+    }
 </style>
 <div>
     {% for message in messages %}
@@ -40,7 +43,16 @@
                         <h6 class="m-0 font-weight-bold text-secondary">Updates</h6>
                     </div>
                     <div class="card-body">
-                        <p>View Updates</p>
+                        {% if updates %}
+                            {% for update in updates %}
+                                <p>{{ update.update_date }}</p>
+                                <ul>
+                                    <li>{{ update.update }}</li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            <p>There are no new Updates.</p>
+                        {% endif %}   
                     </div>
                 </div>
             </div>
@@ -52,7 +64,16 @@
                     <h6 class="m-0 font-weight-bold text-danger">Important</h6>
                 </div>
                 <div class="card-body">
-                    <p>View Important Updates</p>
+                    {% if important_updates %}
+                            {% for update in important_updates %}
+                                <p>{{ update.update_date }}</p>
+                                <ul>
+                                    <li>{{ update.update }}</li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            <p>There are no new Important Updates.</p>
+                        {% endif %} 
                 </div>
             </div>
         </div>
@@ -105,10 +126,10 @@
     <div class="row">
 
         <!-- Content Column -->
-        <div class="col-lg-6 mb-4">
+        <!-- <div class="col-lg-6 mb-4"> -->
 
             <!-- Service Desk Ticket Cats -->
-            <div class="card shadow mb-4" style="border-radius: 14px;">
+            <!--<div class="card shadow mb-4" style="border-radius: 14px;">
                 <div class="card-header py-3" style="border-top-left-radius: 14px;border-top-right-radius: 14px;">
                     <h6 class="m-0 font-weight-bold text-secondary">Service Desk Tickets</h6>
                 </div>
@@ -135,7 +156,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div> 
 
 {% endblock %}
