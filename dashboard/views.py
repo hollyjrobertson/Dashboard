@@ -94,6 +94,8 @@ def addUpdate(request):
     }
     return render(request, 'dashboard/update_form.html', context)
 
+# Nonsense comment
+
 @login_required(login_url='login')
 @verify_employee
 def detail(request, employee_id):
