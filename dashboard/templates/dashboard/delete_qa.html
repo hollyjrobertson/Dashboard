@@ -1,0 +1,17 @@
+{% extends 'dashboard/main.html' %}
+
+{% load static %}
+{% block content %}
+<h2>{{ employee }}</h2>
+<hr>
+<!--Section title-->
+<h3 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Delete QA for {{ employee }}</h3>
+<!-- Add Stats -->
+<p>Are you sure you want to delete the QA Review for {{ qa.qa_date }}</p>    
+
+<form method="POST">
+    {% csrf_token %} 
+    <a class="btn btn-primary" href="{% url 'detail' employee.employee_id %}">Cancel</a>
+    <button class="btn btn-danger">Delete</button>
+</form>
+{% endblock %}

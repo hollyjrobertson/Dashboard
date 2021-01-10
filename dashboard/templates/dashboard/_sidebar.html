@@ -1,0 +1,208 @@
+<style>
+  #accordionSidebar {
+    background-color: rgb(153, 0, 0);
+  }
+
+</style>
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient sidebar sidebar-dark accordion" id="accordionSidebar">
+
+  <!-- Sidebar - Home -->
+  <li>
+    <a href="{% url 'index' %}" class="sidebar-brand d-flex align-items-center justify-content-center">
+      <div class="sidebar-brand-icon rotate-n-15"></div>
+      <i class="far fa-compass" style="font-size: 200%;"></i>
+      <div class="sidebar-brand-text mx-3">Dashboard</div>
+    </a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  {% if request.user.is_staff %}
+  <!-- Sidebar - Admin -->
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">
+      <i class="fas fa-fw fa-user-shield"></i>
+      <span>Admin</span></a>
+  </li>
+  {% endif %}
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Sidebar - ITSD -->
+  <div class="sidebar-heading">
+    ITSD
+  </div>
+
+  <!-- Sidebar - ITSD Active Specialists -->  
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseITSpecialists" aria-expanded="true" aria-controls="collapseITSpecialists">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Specialists</span>
+    </a>
+    <div id="collapseITSpecialists" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Active IT Specialists:</h6>
+          {% if current_IT_specialist_list %}
+            {% for specialist in current_IT_specialist_list %}
+              <a class="collapse-item" href="{% url 'detail' specialist.employee_id %}">{{ specialist }}</a>
+            {% endfor %}
+          {% else %}
+            <p>There are no IT Specialists listed.</p>
+          {% endif %}   
+      </div>
+    </div>
+  </li>
+  
+  <!-- Sidebar - ITSD Active Analysts -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseITAnalysts" aria-expanded="true" aria-controls="collapseITAnalysts">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Analysts</span>
+    </a>
+    <div id="collapseITAnalysts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Active IT Analysts:</h6>
+          {% if current_IT_analyst_list %}
+            {% for analyst in current_IT_analyst_list %}
+              <a class="collapse-item" href="{% url 'detail' analyst.employee_id %}">{{ analyst }}</a>
+            {% endfor %}
+          {% else %}
+            <p>There are no IT Analysts listed.</p>
+          {% endif %}   
+      </div>
+    </div>
+  </li> 
+
+  <!-- Sidebar - ITSD Active Leaders  -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseITLeaders" aria-expanded="true" aria-controls="collapseITLeaders">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Leaders</span>
+    </a>
+    <div id="collapseITLeaders" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Active IT Leaders:</h6>
+          {% if current_IT_leader_list %}
+            {% for leader in current_IT_leader_list %}
+              <a class="collapse-item" href="{% url 'detail' leader.employee_id %}">{{ leader }}</a>
+            {% endfor %}
+          {% else %}
+            <p>There are no IT Leaders listed.</p>
+          {% endif %}   
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar - CCSD -->
+  <div class="sidebar-heading">
+    CCSD
+  </div>
+
+  <!-- Sidebar - CCSD Active Specialists -->  
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCCSpecialists" aria-expanded="true" aria-controls="collapseCCSpecialists">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Specialists</span>
+    </a>
+    <div id="collapseCCSpecialists" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Active CC Specialists:</h6>
+          {% if current_CC_specialist_list %}
+            {% for specialist in current_CC_specialist_list %}
+              <a class="collapse-item" href="{% url 'detail' specialist.employee_id %}">{{ specialist }}</a>
+            {% endfor %}
+          {% else %}
+            <p>There are no CC Specialists listed.</p>
+          {% endif %}   
+      </div>
+    </div>
+  </li>
+  
+  <!-- Sidebar - CCSD Active Analysts -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCCAnalysts" aria-expanded="true" aria-controls="collapseCCAnalysts">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Analysts</span>
+    </a>
+    <div id="collapseCCAnalysts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Active CC Analysts:</h6>
+          {% if current_CC_analyst_list %}
+            {% for analyst in current_CC_analyst_list %}
+              <a class="collapse-item" href="{% url 'detail' analyst.employee_id %}">{{ analyst }}</a>
+            {% endfor %}
+          {% else %}
+            <p>There are no CC Analysts listed.</p>
+          {% endif %}   
+      </div>
+    </div>
+  </li> 
+
+  <!-- Sidebar - CCSD Active Leaders  -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCCLeaders" aria-expanded="true" aria-controls="collapseCCLeaders">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Leaders</span>
+    </a>
+    <div id="collapseCCLeaders" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Active CC Leaders:</h6>
+          {% if current_CC_leader_list %}
+            {% for leader in current_CC_leader_list %}
+              <a class="collapse-item" href="{% url 'detail' leader.employee_id %}">{{ leader }}</a>
+            {% endfor %}
+          {% else %}
+            <p>There are no CC Leaders listed.</p>
+          {% endif %}   
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar - Links -->
+  <div class="sidebar-heading">
+    Links
+  </div>
+
+  <!-- Sidebar - ADP -->
+  <li class="nav-item" style="padding: 0px;">
+    <a class="nav-link" href="https://hr.safelite.com" target="_blank">
+      <i class="fas fa-id-card-alt"></i>
+      <span>ADP</span>
+    </a>
+  </li>
+    
+  <!-- Sidebar - MySafelite -->
+  <li class="nav-item" style="padding: 0px;">
+    <a class="nav-link" href="https://id.mysafelite.net/" target="_blank">
+      <i class="fas fa-grip-horizontal"></i>
+      <span>MySafelite</span>
+    </a>
+  </li>
+
+  <!-- Sidebar - TheWire -->
+  <li class="nav-item" style="padding: 0px;">
+    <a class="nav-link" href="https://thewire.safelite.com/" target="_blank">
+      <i class="far fa-newspaper"></i>
+      <span>TheWire</span>
+    </a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+
+</ul>
+<!-- End of Sidebar -->

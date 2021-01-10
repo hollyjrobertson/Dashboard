@@ -1,0 +1,141 @@
+{% extends 'dashboard/main.html' %}
+
+{% block content %}
+<style>
+    #messages {
+        color: green;
+        background-color: beige;
+    }
+</style>
+<div>
+    {% for message in messages %}
+        <p id="messages">{{ message }}</p>
+    {% endfor %}
+</div>
+    {% if request.user.is_superuser %}
+    <!-- Admin Row -->
+    <div class="row">
+        <!-- Admin Tools -->
+        <div class="col-lg-12">
+            <div class="card shadow mb-4" style="border-radius: 14px;">
+                <div class="card-header py-3" style="border-top-left-radius: 14px;border-top-right-radius: 14px;">
+                    <h6 class="m-0 font-weight-bold text-secondary">Admin Tools</h6>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-sm btn-info" href="{% url 'addUpdate'%}">Add an Update</a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'importEmployees'%}">Update Employees</a>
+                    <a class="btn btn-sm btn-success" href="{% url 'updateStatistics'%}">Import Team Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Updates Row -->
+    <div class="row">
+        <!-- Updates -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow mb-4" style="border-radius: 14px;">
+                    <div class="card-header py-3" style="border-top-left-radius: 14px;border-top-right-radius: 14px;">
+                        <h6 class="m-0 font-weight-bold text-secondary">Updates</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>View Updates</p>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Important Updates -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4" style="border-radius: 14px;">
+                <div class="card-header py-3" style="border-top-left-radius: 14px;border-top-right-radius: 14px;">
+                    <h6 class="m-0 font-weight-bold text-danger">Important</h6>
+                </div>
+                <div class="card-body">
+                    <p>View Important Updates</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AHT Card Row -->
+    <div class="row">
+        
+    </div>
+
+
+    <!-- ACW Card Row -->
+    <div class="row">
+        
+    </div>
+
+
+    <!-- QA Scores Card Row -->
+    <div class="row">
+        
+    </div>
+
+    <!-- Calls Card Row -->
+    <div class="row">
+        
+    </div>
+
+
+    <!-- Tickets Card Row -->
+    <div class="row">
+        
+    </div>
+
+    <!-- PTO Card Row -->
+    <div class="row">
+        
+    </div>
+
+    <!-- Late Arrival Row -->
+    <div class="row">
+        
+    </div>
+
+    <!-- Early Departure Row -->
+    <div class="row">
+
+    </div>
+
+    <!-- Service Desk Ticket Cats Row -->
+    <div class="row">
+
+        <!-- Content Column -->
+        <div class="col-lg-6 mb-4">
+
+            <!-- Service Desk Ticket Cats -->
+            <div class="card shadow mb-4" style="border-radius: 14px;">
+                <div class="card-header py-3" style="border-top-left-radius: 14px;border-top-right-radius: 14px;">
+                    <h6 class="m-0 font-weight-bold text-secondary">Service Desk Tickets</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Cat 1<span class="float-right">60%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cat 2<span class="float-right">40%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-secondary" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cat 3<span class="float-right">20%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cat 4<span class="float-right">35%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cat 5<span class="float-right">10%</span></h4>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

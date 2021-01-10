@@ -1,0 +1,1 @@
+web: gunicorn safelite.wsgi --preload --log-file -

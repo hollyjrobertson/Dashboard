@@ -1,0 +1,19 @@
+{% extends 'dashboard/main.html' %}
+
+{% load static %}
+{% block content %}
+<h2>{{ employee }}</h2>
+<hr>
+<!--Section title-->
+<h3 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Edit QA for {{ employee }}</h3>
+<!-- Add Stats -->
+<div class="form-group">
+    <form method="post">
+        {% csrf_token %}
+            {{ qa_form }}
+        <div>
+            <button class="btn btn-success">Update</button>
+        </div>
+    </form>
+</div>             
+{% endblock %}

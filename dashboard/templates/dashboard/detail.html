@@ -1,0 +1,302 @@
+{% extends 'dashboard/main.html' %}
+
+{% load static }
+{% block content %}
+    {% load plotly_dash %}
+        <h1>{{ employee }} Page</h1>
+            {% if request.user.is_superuser %}
+                <!-- Admin Tools -->
+                <div class="col-md-4">
+                    <a class="btn btn-sm btn-primary" href="{% url 'updateEmployee' employee.employee_id %}">Update</a>
+                    <a class="btn btn-sm btn-success" href="{% url 'addStats' employee.employee_id%}">Add Stats</a>
+                    <a class="btn btn-sm btn-warning" href="{% url 'addQA' employee.employee_id%}">Add QA</a>
+                    <a class="btn btn-sm btn-secondary" href="{% url 'addTimeStats' employee.employee_id%}">Add Time Stats</a>
+                </div>
+            {% endif %}
+        <hr>
+        <!-- Section title -->
+        <h1 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Recent Stats</h1>
+
+        <!-- ACW Card -->
+        <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">ACW</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_acw }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-headset fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AHT Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">AHT</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_aht }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-headset fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QA Scores Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">QA Score</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_qa }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <!-- Calls Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Calls</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ recent_call }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-headset fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Tickets</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_ticket }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-ticket-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Late Arrival -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Late Arrival</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">#</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Early Departure -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left shadow h-100 py-2" style="border-radius: 14px;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Early Departure</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">#</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <hr>
+
+        <!-- Historical Stats -->
+        <div class="col-md-12">
+            <h1 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Historical Stats</h1>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Date</th>
+                        <th>ACW Avg</th>
+                        <th>AHT Avg</th>
+                        <th>Calls Taken</th>
+                        <th>Tickets Created</th>
+                        {% if request.user.is_superuser %}
+                            <th>Update</th>
+                            <th>Delete</th>
+                        {% else %}
+                            <th colspan="2"></th>
+                        {% endif %}
+                    </tr>
+                {% if historical_stats %}
+                    {% for stat in historical_stats %}
+                    <tr>
+                        <td>{{stat.date}}</td>
+                        <td>{{stat.acw}}</td>
+                        <td>{{stat.aht}}</td>
+                        <td>{{stat.call}}</td>
+                        <td>{{stat.ticket}}</td>
+                        {% if request.user.is_superuser%}
+                            <td><a class="btn btn-sm btn-info" href="{% url 'updateStats' stat.id %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'deleteStats' stat.id %}">Delete</a></td>
+                        {% else %}
+                            <td colspan="2"></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <td colspan="5">No Recent Stats</td>
+                {% endif %}
+                </table>
+            </div>
+        </div>
+
+        <!-- Historical QA Scores -->
+        <div class="col-md-12">
+            <h1 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Historical QA Scores</h1>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Date</th>
+                        <th>Score</th>
+                        <th>Ticket #</th>
+                        {% if request.user.is_superuser %}
+                            <th>Update</th>
+                            <th>Delete</th>
+                        {% else %}
+                            <th colspan="2"></th>
+                        {% endif %}
+                    </tr>
+                {% if historical_qa %}
+                    {% for qa in historical_qa %}
+                    <tr>
+                        <td>{{qa.qa_date}}</td>
+                        <td>{{qa.qa_score}}</td>
+                        <td>{{qa.qa_ticket}}</td>
+                        {% if request.user.is_superuser %}
+                            <td><a class="btn btn-sm btn-info" href="{% url 'updateQA' qa.id %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'deleteQA' qa.id %}">Delete</a></td>
+                        {% else %}
+                            <td colspan="2"></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <td colspan="5">No Recent QA Reviews</td>
+                {% endif %}
+                </table>
+            </div>
+        </div>
+
+        <!-- Graphs -->
+        <div class="col-md-12">
+            <h1 class="h3 mb-0 text-gray-800" style="padding-bottom: 20px; padding-top: 30px;">Graphs</h1>
+            <div class="card card-body">
+                <div class="chart-container" style="position: relative; height:100%; width:100%">
+                    <canvas id="statChart" width="400" height="400"></canvas>
+                    <canvas id="ticketChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        <script>
+            var myACWChart = new Chart((document.getElementById('statChart')), {
+                type: 'line',
+                data: {
+                    labels: [{% for item in historical_stats %}'{{item.date}}',{% endfor %}],
+                    datasets: [
+                        {
+                            label: 'ACW',
+                            data: [{% for item in historical_stats %}'{{item.acw}}',{% endfor %}],
+                            fill: false,
+                            borderColor: "#3e95cd",
+                        },
+                        {
+                            label: 'AHT',
+                            data: [{% for item in historical_stats %}'{{item.aht}}',{% endfor %}],
+                            fill: false,
+                            borderColor: "#cc3399",
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            offset: true
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'ACW & AHT History'
+                    }
+                }
+            });
+            var myACWChart = new Chart((document.getElementById('ticketChart')), {
+                type: 'line',
+                data: {
+                    labels: [{% for item in historical_stats %}'{{item.date}}',{% endfor %}],
+                    datasets: [
+                        {
+                            label: 'Calls',
+                            data: [{% for item in historical_stats %}'{{item.call}}',{% endfor %}],
+                            fill: false,
+                            borderColor: "#3ecd76",
+                        },
+                        {
+                            label: 'Tickets',
+                            data: [{% for item in historical_stats %}'{{item.ticket}}',{% endfor %}],
+                            fill: false,
+                            borderColor: "#763ecd",
+                        },
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            offset: true
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Calls & Tickets History'
+                    }
+                }
+            });
+        </script>
+
+{% endblock %}
