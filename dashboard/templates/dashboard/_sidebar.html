@@ -1,3 +1,4 @@
+{% load static %}
 <style>
   #accordionSidebar {
     background-color: rgb(153, 0, 0);
@@ -12,7 +13,7 @@
   <li>
     <a href="{% url 'index' %}" class="sidebar-brand d-flex align-items-center justify-content-center">
       <div class="sidebar-brand-icon rotate-n-15"></div>
-      <i class="far fa-compass" style="font-size: 200%;"></i>
+      <img id="logo" src="{% static 'img/home.png' %}" alt="logo">
       <div class="sidebar-brand-text mx-3">Dashboard</div>
     </a>
   </li>
